@@ -9,9 +9,9 @@ var currentWind = document.getElementById("currentWind");
 var currentHum = document.getElementById("currentHum");
 var currentUV = document.getElementById("currentUV");
 var currentDate = document.getElementById("currentDate");
-var currentPic = document.getElementById ("currentPic");
 
-searchBtn.addEventListener ("submit", function(){
+searchBtn.addEventListener ("click", function(event){
+    event.preventDefault();
 
     var cityName = searchedCity.value.trim();
     console.log(cityName);
@@ -29,11 +29,14 @@ searchBtn.addEventListener ("submit", function(){
         // var searchedList = document.createElement('li');
         // var userUrl = document.createElement('p');
         
-
-        cityMain.textContent = data.name;
-        console.log (data.weather[0].icon);
-        currentPic.setAttribute("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+        var currentPic = document.createElement("img");
         var currentFTemp = Math.floor(((data.main.temp - 273.15) * 9 / 5) + 32);
+
+        cityMain.innerHTML = data.name;
+        currentPic.alt = data.weather[0].icon;
+        currentPic.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
+        cityMain.appendChild (currentPic);
+
         currentTemp.textContent = "Temp: " + currentFTemp + " °F"
         currentWind.textContent = "Wind Speed: " + data.wind.speed + " MPH";
         currentHum.textContent = "Humidity: " + data.main.humidity + "%";
