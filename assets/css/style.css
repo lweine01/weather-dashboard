@@ -3,3 +3,24 @@
     padding:0;
     box-sizing: border-box;
 }
+
+.favorable {
+    background-color: green;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.moderate {
+    background-color:goldenrod;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+.severe {
+    background-color: red;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
