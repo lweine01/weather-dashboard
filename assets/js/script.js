@@ -7,6 +7,7 @@ var currentTemp = document.getElementById("currentTemp");
 var currentWind = document.getElementById("currentWind");
 var currentHum = document.getElementById("currentHum");
 var currentUV = document.getElementById("currentUV");
+var fiveDayData = document.querySelectorAll(".fiveDay");
 var fiveDayMain = document.querySelectorAll(".fiveDayMain");
 var fiveDayTemp = document.querySelectorAll(".fiveDayTemp");
 var fiveDayWind = document.querySelectorAll(".fiveDayWind");
@@ -17,14 +18,13 @@ function forcast() {
     
     var cityName = searchedCity.value.trim();
     var currentURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
-    var fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIKey;
+    // var fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIKey;
     
     fetch(currentURL)
     .then(function (response) {
         return response.json();
     })
     .then(function (data) {
-        console.log(data);
         
         // var searchedList = document.createElement('li');
 
@@ -53,8 +53,7 @@ function forcast() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-
+            
             var UVIndex = data.current.uvi;
             var UVColor = document.createElement('span');
             UVColor.textContent = UVIndex;
@@ -67,39 +66,49 @@ function forcast() {
                 UVColor.classList = "severe";
             }
             currentUV.appendChild(UVColor);
+
+            var dailyData = data.daily.slice(0, 5);
+            console.log(dailyData);
             
-            // usersContainer.append(userName);
-            // usersContainer.append(userUrl);
+          //  for(i=0; i<5; i++) {
+              var fiveDayDate = new Date (dailyData[0].dt*1000);
+              var fiveDayMonth = fiveDayDate.getMonth()+1;
+              var fiveDayDay= fiveDayDate.getDate();
+              var fiveDayYear = fiveDayDate.getFullYear();
+              fiveDayMain.textContent = fiveDayMonth + "/" + fiveDayDay + "/" + fiveDayYear;
+
+               // fiveDayMain.textContent = "Wind: " + dailyData[0].wind_speed + " MPH";
+          //  }
+
             
+        //     for (i=0; fiveDayData.length; i++){
+        //         fiveDayTemp.textContent
+
+        //         fiveDayData[i].innerHTML = "";
+            
+                //var fiveDayFTemp = Math.floor(((data.daily[0].temp.day - 273.15) * 9 / 5) + 32);
+                
+        //         fiveDayPic.alt = data.daily[0].weather[0].icon;
+        //         fiveDayPic.src = "http://openweathermap.org/img/wn/" + data.daily[0].weather[0].icon + "@2x.png";
+                
+        //         fiveDayTemp.textContent = "Temp: " + fiveDayFTemp + " °F"
+        //         fiveDayWind.textContent = "Wind Speed: " + data.daily[0].wind_speed + " MPH";
+        //         fiveDayHum.textContent = "Humidity: " + data.daily[0].humidity + "%";
+        // }
+
         });
     });
-
-    fetch(fiveDayURL)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data);
-
-        for (var i=0; i<5; i++) {
-        var daily = daily[i];
-        var fiveDayDate = new Date (data.daily.dt*1000);
-        var fiveDayMonth = fiveDayDate.getMonth()+1;
-        var fiveDayDay= fiveDayDate.getDate();
-        var fiveDayYear = fiveDayDate.getFullYear();
-
-        var fiveDayFTemp = Math.floor(((data.daily.temp.max - 273.15) * 9 / 5) + 32);
+    
+    // fetch(UVURL)
+    // .then(function (response) {
+    //     return response.json();
+    // })
+    // .then(function (data) {
+    //     console.log(data);
         
-        fiveDayMain.textContent = fiveDayMonth + "/" + fiveDayDay + "/" + fiveDayYear;
-        fiveDayPic.alt = data.daily.weather[0].icon;
-        fiveDayPic.src = "http://openweathermap.org/img/wn/" + data.daily.weather[0].icon + "@2x.png";
-        fiveDayMain.appendChild(currentPic);
-        
-        fiveDayTemp.textContent = "Temp: " + fiveDayFTemp + " °F"
-        currentWind.textContent = "Wind Speed: " + data.daily.wind_speed + " MPH";
-        currentHum.textContent = "Humidity: " + data.daily.humidity + "%";
-        }
-    })
+        // for (var i=0; i<5; i++) {
+            // }
+            // })
 
 }
 
