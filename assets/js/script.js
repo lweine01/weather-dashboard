@@ -10,10 +10,8 @@ var currentUV = document.getElementById("currentUV");
 var fiveDay = document.querySelectorAll(".fiveDay");
 
 function forcast() {
-    
     var cityName = searchedCity.value.trim();
     var currentURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
-    // var fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + APIKey;
     
     fetch(currentURL)
     .then(function (response) {
@@ -65,7 +63,7 @@ function forcast() {
             var dailyData = data.daily.slice(1, 6);
             console.log(dailyData);
             
-            for (var i in dailyData) {
+            for (var i=0; i<5; i++) {
                 var day = dailyData[i];
 
                 var newDate = new Date(day.dt*1000);
@@ -80,9 +78,22 @@ function forcast() {
                 iconEl.alt = day.weather[0].icon;
                 iconEl.src = "http://openweathermap.org/img/wn/" + day.weather[0].icon + "@2x.png";
                 fiveDay[i].appendChild(iconEl);
-                console.log(day);
-
                 
+                var tempMinEl = document.createElement("p");
+                tempMinEl.textContent = "Temp Min: " + day.temp.min + " °F";
+                fiveDay[i].appendChild(tempMinEl);
+
+                var tempMaxEl = document.createElement("p");
+                tempMaxEl.textContent = "Temp Max: " + day.temp.max + " °F";
+                fiveDay[i].appendChild(tempMaxEl);
+
+                var windEl= document.createElement("p");
+                windEl.textContent = "Wind Speed: " + day.wind_speed + " MPH";
+                fiveDay[i].appendChild(windEl);
+
+                var humEl = document.createElement("p");
+                humEl.textContent = "Wind Speed: " + day.humidity + "%";
+                fiveDay[i].appendChild(humEl);
             }
 
         });
