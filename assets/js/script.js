@@ -7,12 +7,7 @@ var currentTemp = document.getElementById("currentTemp");
 var currentWind = document.getElementById("currentWind");
 var currentHum = document.getElementById("currentHum");
 var currentUV = document.getElementById("currentUV");
-var fiveDayData = document.querySelectorAll(".fiveDay");
-var fiveDayMain = document.querySelectorAll(".fiveDayMain");
-var fiveDayTemp = document.querySelectorAll(".fiveDayTemp");
-var fiveDayWind = document.querySelectorAll(".fiveDayWind");
-var fiveDayHum = document.querySelectorAll(".fiveDayHum");
-var fiveDayPic = document.querySelectorAll(".fiveDayPic");
+var fiveDay = document.querySelectorAll(".fiveDay");
 
 function forcast() {
     
@@ -46,7 +41,7 @@ function forcast() {
         currentUV.textContent = "UV Index: ";
         
         
-        var UVURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=" + APIKey;
+        var UVURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=" + APIKey + "&units=imperial";
         
         fetch(UVURL)
         .then(function (response) {
@@ -67,48 +62,31 @@ function forcast() {
             }
             currentUV.appendChild(UVColor);
 
-            var dailyData = data.daily.slice(0, 5);
+            var dailyData = data.daily.slice(1, 6);
             console.log(dailyData);
             
-          //  for(i=0; i<5; i++) {
-              var fiveDayDate = new Date (dailyData[0].dt*1000);
-              var fiveDayMonth = fiveDayDate.getMonth()+1;
-              var fiveDayDay= fiveDayDate.getDate();
-              var fiveDayYear = fiveDayDate.getFullYear();
-              fiveDayMain.textContent = fiveDayMonth + "/" + fiveDayDay + "/" + fiveDayYear;
+            for (var i in dailyData) {
+                var day = dailyData[i];
 
-               // fiveDayMain.textContent = "Wind: " + dailyData[0].wind_speed + " MPH";
-          //  }
+                var newDate = new Date(day.dt*1000);
+                var month = newDate.getMonth()+1;
+                var weekDay = newDate.getDate();
+                var year = newDate.getFullYear();
+                var dateEl = document.createElement("h6");
+                dateEl.textContent = month + "/" + weekDay + "/" + year;
+                fiveDay[i].appendChild(dateEl);
 
-            
-        //     for (i=0; fiveDayData.length; i++){
-        //         fiveDayTemp.textContent
+                var iconEl = document.createElement("img");
+                iconEl.alt = day.weather[0].icon;
+                iconEl.src = "http://openweathermap.org/img/wn/" + day.weather[0].icon + "@2x.png";
+                fiveDay[i].appendChild(iconEl);
+                console.log(day);
 
-        //         fiveDayData[i].innerHTML = "";
-            
-                //var fiveDayFTemp = Math.floor(((data.daily[0].temp.day - 273.15) * 9 / 5) + 32);
                 
-        //         fiveDayPic.alt = data.daily[0].weather[0].icon;
-        //         fiveDayPic.src = "http://openweathermap.org/img/wn/" + data.daily[0].weather[0].icon + "@2x.png";
-                
-        //         fiveDayTemp.textContent = "Temp: " + fiveDayFTemp + " °F"
-        //         fiveDayWind.textContent = "Wind Speed: " + data.daily[0].wind_speed + " MPH";
-        //         fiveDayHum.textContent = "Humidity: " + data.daily[0].humidity + "%";
-        // }
+            }
 
         });
     });
-    
-    // fetch(UVURL)
-    // .then(function (response) {
-    //     return response.json();
-    // })
-    // .then(function (data) {
-    //     console.log(data);
-        
-        // for (var i=0; i<5; i++) {
-            // }
-            // })
 
 }
 
