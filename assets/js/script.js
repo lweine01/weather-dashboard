@@ -8,18 +8,23 @@ var currentWind = document.getElementById("currentWind");
 var currentHum = document.getElementById("currentHum");
 var currentUV = document.getElementById("currentUV");
 var fiveDay = document.querySelectorAll(".fiveDay");
+var recentHistory = JSON.parse(localStorage.getItem("search")) || [];
 
 function forcast() {
     var cityName = searchedCity.value.trim();
     var currentURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
+   
+    var buttonEl = document.createElement("button");
+    buttonEl.textContent = cityName;
+    buttonEl.setAttribute("class", "btn btn-secondary w-100 m-2");
+    recentSearch.appendChild(buttonEl);
+
     
     fetch(currentURL)
     .then(function (response) {
         return response.json();
     })
     .then(function (data) {
-        
-        // var searchedList = document.createElement('li');
 
         var currentDate = new Date(data.dt*1000);
         var currentMonth = currentDate.getMonth()+1;
@@ -37,7 +42,6 @@ function forcast() {
         currentWind.textContent = "Wind Speed: " + data.wind.speed + " MPH";
         currentHum.textContent = "Humidity: " + data.main.humidity + "%";
         currentUV.textContent = "UV Index: ";
-        
         
         var UVURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=" + APIKey + "&units=imperial";
         
