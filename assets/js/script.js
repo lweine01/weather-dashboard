@@ -83,6 +83,8 @@ function forcast(cityName) {
             console.log(dailyData);
             
             for (var i=0; i<5; i++) {
+                fiveDay[i].innerHTML="";
+
                 var day = dailyData[i];
                 console.log(fiveDay[i]);
 
@@ -120,11 +122,6 @@ function forcast(cityName) {
     });
     
 }
-
-// function clearFiveDay(){
-//     while (fiveDay.dateEl) {
-//         fiveDay.removeChild(dateEl);
-// }}
 
 searchBtn.addEventListener("click", function (event) {
     event.preventDefault();
