@@ -114,7 +114,7 @@ function forcast(cityName) {
                 fiveDay[i].appendChild(windEl);
 
                 var humEl = document.createElement("p");
-                humEl.textContent = "Wind Speed: " + day.humidity + "%";
+                humEl.textContent = "Humidity: " + day.humidity + "%";
                 fiveDay[i].appendChild(humEl);
             }
             
@@ -191,8 +191,9 @@ recentSearch.addEventListener("click", function(event){
             console.log(dailyData);
             
             for (var i=0; i<5; i++) {
+                fiveDay[i].innerHTML="";
+
                 var day = dailyData[i];
-                console.log(fiveDay[i]);
 
                 var dateEl = document.createElement("h6");
                 var newDate = new Date(day.dt*1000);
@@ -220,7 +221,7 @@ recentSearch.addEventListener("click", function(event){
                 fiveDay[i].appendChild(windEl);
 
                 var humEl = document.createElement("p");
-                humEl.textContent = "Wind Speed: " + day.humidity + "%";
+                humEl.textContent = "Humidity: " + day.humidity + "%";
                 fiveDay[i].appendChild(humEl);
             }
             
