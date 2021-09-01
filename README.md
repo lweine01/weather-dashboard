@@ -1,4 +1,4 @@
-# weather-dashboard
+# Weather Dashboard
 
 [Link to finished website](https://lweine01.github.io/weather-dashboard/)
 
@@ -17,7 +17,7 @@ In this application a user is able to search for a city's forecast. The page wil
 
 
 ## Usage
-Used to find forecast by city.
+Used to find weather forecast by city.
 
 ## Language
 HTML, CSS, and Javascript
