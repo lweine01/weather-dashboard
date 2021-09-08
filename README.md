@@ -6,7 +6,9 @@
 - [Description](#Description)
 - [Screenshots](#Screenshots)
 - [Usage](#Usage)
+- [License](#License)
 - [Language](#language)
+- [Contact](#Contact)
 
 
 ## Description
@@ -19,5 +21,11 @@ In this application a user is able to search for a city's forecast. The page wil
 ## Usage
 Used to find weather forecast by city.
 
+## License
+MIT
+
 ## Language
 HTML, CSS, and Javascript
+
+## Contact
+LauraRWeiner@gmail.com
